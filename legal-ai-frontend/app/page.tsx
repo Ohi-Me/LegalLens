@@ -681,7 +681,7 @@ export default function Home() {
             </div>
 
             {/* Risk Distribution */}
-            <RiskDistribution clauses={result.clauses} />
+            {/* <RiskDistribution clauses={result.clauses} /> */}
 
             {/* Download */}
             <button
