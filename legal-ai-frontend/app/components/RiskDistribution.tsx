@@ -41,6 +41,8 @@
 // }
 "use client"
 
+import "@/app/lib/chart"
+
 export default function RiskDistribution({ clauses }: { clauses: any[] }) {
   const high = clauses.filter(c => c.risk_score > 70).length
   const medium = clauses.filter(c => c.risk_score > 40 && c.risk_score <= 70).length
