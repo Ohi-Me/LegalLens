@@ -271,7 +271,11 @@
 "use client"
 
 import { useState } from "react"
-import jsPDF from "jspdf"
+
+let jsPDF: any = null
+if (typeof window !== "undefined") {
+  jsPDF = require("jspdf").default
+}
 
 import ExecutiveSummary from "./components/ExecutiveSummary"
 import StatsCard from "./components/StatCard"
