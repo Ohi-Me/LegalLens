@@ -504,12 +504,6 @@ import StatCard from "./components/StatCard"
 import SectionTitle from "./components/SectionTitle"
 import ClauseCard from "./components/ClauseCard"
 
-import dynamic from "next/dynamic"
-
-const RiskDistribution = dynamic(
-  () => import("./components/RiskDistribution"),
-  { ssr: false }
-)
 
 export default function Home() {
   const [file, setFile] = useState<File | null>(null)
