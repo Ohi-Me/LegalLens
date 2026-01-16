@@ -272,11 +272,6 @@
 
 import { useState } from "react"
 
-let jsPDF: any = null
-if (typeof window !== "undefined") {
-  jsPDF = require("jspdf").default
-}
-
 import ExecutiveSummary from "./components/ExecutiveSummary"
 import StatsCard from "./components/StatCard"
 import SectionTitle from "./components/SectionTitle"
@@ -323,36 +318,41 @@ export default function Home() {
     setLoading(false)
   }
 
-  const downloadReport = () => {
-    if (!result) return
-
-    const doc = new jsPDF()
-    let y = 14
-
-    doc.setFontSize(18)
-    doc.text("LegalLens", 14, y)
-    y += 10
-
-    doc.setFontSize(12)
-    doc.text(`Overall Risk Score: ${result.overall_risk}`, 14, y)
-    y += 6
-    doc.text(`Clauses Analyzed: ${result.clauses.length}`, 14, y)
-    y += 6
-    doc.text(`Missing Clauses: ${result.missing_clauses.length}`, 14, y)
-    y += 10
-
-    if (result.missing_clauses.length > 0) {
-      doc.setFontSize(13)
-      doc.text("Missing Critical Clauses:", 14, y)
+  const downloadReport = async () => {
+      if (!result) return
+    
+      const { default: jsPDF } = await import("jspdf")
+    
+      const doc = new jsPDF()
+      let y = 14
+    
+      doc.setFontSize(18)
+      doc.text("LegalLens", 14, y)
+      y += 10
+    
+      doc.setFontSize(12)
+      doc.text(`Overall Risk Score: ${result.overall_risk}`, 14, y)
       y += 6
-
-      doc.setFontSize(11)
-      result.missing_clauses.forEach((c: string) => {
-        doc.text(`• ${c}`, 16, y)
-        y += 5
-      })
+      doc.text(`Clauses Analyzed: ${result.clauses.length}`, 14, y)
       y += 6
+      doc.text(`Missing Clauses: ${result.missing_clauses.length}`, 14, y)
+      y += 10
+    
+      if (result.missing_clauses.length > 0) {
+        doc.setFontSize(13)
+        doc.text("Missing Critical Clauses:", 14, y)
+        y += 6
+    
+        doc.setFontSize(11)
+        result.missing_clauses.forEach((c: string) => {
+          doc.text(`• ${c}`, 16, y)
+          y += 5
+        })
+      }
+    
+      doc.save("legallens-report.pdf")
     }
+
 
     result.clauses.forEach((c: any, i: number) => {
       if (y > 270) {
