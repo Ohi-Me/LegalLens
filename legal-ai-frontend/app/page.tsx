@@ -273,7 +273,7 @@
 import { useState } from "react"
 
 import ExecutiveSummary from "./components/ExecutiveSummary"
-import StatsCard from "./components/StatCard"
+import StatCard from "./components/StatCard"
 import SectionTitle from "./components/SectionTitle"
 import RiskDistribution from "./components/RiskDistribution"
 import ClauseCard from "./components/ClauseCard"
@@ -444,9 +444,9 @@ export default function Home() {
 
             {/* Stats */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-              <StatsCard label="Overall Risk" value={result.overall_risk} />
-              <StatsCard label="Clauses Analyzed" value={result.clauses.length} />
-              <StatsCard label="Missing Clauses" value={result.missing_clauses.length} />
+              <StatCard label="Overall Risk" value={result.overall_risk} />
+              <StatCard label="Clauses Analyzed" value={result.clauses.length} />
+              <StatCard label="Missing Clauses" value={result.missing_clauses.length} />
             </div>
 
             {/* Risk Distribution */}
